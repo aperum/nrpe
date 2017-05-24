@@ -17,8 +17,6 @@ The flags are:
 		hostname to connect (default "127.0.0.1")
 	-port int
 		port number (default 5666)
-	-ssl
-		use ssl (default true)
 	-timeout duration
 		network timeout
 
@@ -34,7 +32,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/envimate/nrpe"
+	"github.com/aperum/nrpe"
 )
 
 func main() {
@@ -42,6 +40,8 @@ func main() {
 	var port int
 	var isSSL bool
 	var timeout time.Duration
+
+	isSSL = false
 
 	cmdFlag := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 
@@ -53,7 +53,6 @@ func main() {
 
 	cmdFlag.StringVar(&host, "host", "127.0.0.1", "hostname to connect")
 	cmdFlag.IntVar(&port, "port", 5666, "port number")
-	cmdFlag.BoolVar(&isSSL, "ssl", true, "use ssl")
 	cmdFlag.StringVar(&cmd, "command", "version", "command to execute")
 	cmdFlag.DurationVar(&timeout, "timeout", 0, "network timeout")
 
