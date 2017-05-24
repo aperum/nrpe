@@ -1,8 +1,7 @@
 /*
 Package nrpe implements NRPE client/server library for go.
 
-It supports plain and ssl modes and fully compatible with standard nrpe library.
-Hence you would need libssl-dev package installed on both the client and the server side.
+It supports plain mode and fully compatible with standard nrpe library.
 */
 package nrpe
 
@@ -272,11 +271,7 @@ func Run(conn net.Conn, command Command, isSSL bool,
 
 	// setup ssl connection
 	if isSSL {
-		conn, err = newSSLClient(conn)
-		if err != nil {
-			return nil, err
-		}
-		defer conn.(*sslConn).Clean()
+		return nil, fmt.Errorf("SSL not implemented in this fork!")
 	}
 
 	statusLine := command.toStatusLine()
@@ -321,11 +316,7 @@ func ServeOne(conn net.Conn, handler func(Command) (*CommandResult, error),
 
 	// setup ssl
 	if isSSL {
-		conn, err = newSSLServerConn(conn)
-		if err != nil {
-			return err
-		}
-		defer conn.(*sslConn).Clean()
+		return fmt.Errorf("SSL not implemented in this fork!")
 	}
 
 	request := createPacket()
